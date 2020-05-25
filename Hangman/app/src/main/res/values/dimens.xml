@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Brush sizes -->
+    <dimen name="activity_vertical_margin">10dp</dimen>
+    <integer name="activity_vertical_margin_size">10</integer>
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <integer name="activity_horizontal_margin_size">10</integer>
+
+
+</resources>
