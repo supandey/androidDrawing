@@ -31,7 +31,7 @@ public class SubHunter extends AppCompatActivity {
     boolean hit = false;
     int shotsTaken;
     int distanceFromSub;
-    boolean debugging = true;
+    boolean debugging = false;
 
     ImageView gameView;
     Bitmap blankBitmap;
@@ -92,10 +92,14 @@ public class SubHunter extends AppCompatActivity {
         paint.setColor(Color.argb(255, 0, 0, 0));
 
         // Draw the vertical lines of the grid
-        canvas.drawLine(blockSize * 1, 0,blockSize * 1, numberVerticalPixels, paint);
+        for(int i = 0; i < gridWidth; i++) {
+            canvas.drawLine(blockSize * i, 0,blockSize * i, numberVerticalPixels, paint);
+        }
 
         // Draw the horizontal lines of the grid
-        canvas.drawLine(0, blockSize * 1, numberHorizontalPixels, blockSize * 1, paint);
+        for(int i = 0; i < gridHeight; i++) {
+            canvas.drawLine(0, blockSize * i, numberHorizontalPixels, blockSize * i, paint);
+        }
 
         // Re-size the text appropriate for the score and distance text
         paint.setTextSize(blockSize * 2);
@@ -103,28 +107,72 @@ public class SubHunter extends AppCompatActivity {
         canvas.drawText("Shots Taken: " + shotsTaken + "  Distance: " + distanceFromSub, blockSize, blockSize * 1.75f, paint);
 
         Log.d("Debugging", "In draw");
-        printDebuggingText();
+        if (debugging) printDebuggingText();
     }
 
     //This part of the code will handle detecting that the player has tapped the screen
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         Log.d("Debugging", "In onTouchEvent");
-        takeShot();
+
+        if((motionEvent.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+
+            // Process the player's shot by passing the coordinates of the player's finger to takeShot
+            takeShot(motionEvent.getX(), motionEvent.getY());
+        }
 
         return true;
     }
 
 
     //The code here will execute when the player taps the screen. It will calculate distance from the sub and determine a hit or miss
-    void takeShot(){
+    void takeShot(float touchX, float touchY){
         Log.d("Debugging", "In takeShot");
-        draw();
+
+        // Add one to the shotsTaken variable
+        shotsTaken ++;
+
+        // Convert the float screen coordinates into int grid coordinates
+        horizontalTouched = (int)touchX/ blockSize;
+        verticalTouched = (int)touchY/ blockSize;
+
+        // Did the shot hit the sub?
+        hit = horizontalTouched == subHorizontalPosition && verticalTouched == subVerticalPosition;
+
+        // How far away horizontally and vertically was the shot from the sub
+        int horizontalGap = (int)horizontalTouched - subHorizontalPosition;
+        int verticalGap = (int)verticalTouched - subVerticalPosition;
+
+        // Use Pythagoras's theorem to get the
+        // distance travelled in a straight line
+        distanceFromSub = (int)Math.sqrt( ((horizontalGap * horizontalGap) + (verticalGap * verticalGap)));
+
+        // If there is a hit call boom
+        if(hit)
+            boom();
+            // Otherwise call draw as usual
+        else draw();
     }
 
     // This code says "BOOM!"
     void boom(){
+        gameView.setImageBitmap(blankBitmap);
 
+        // Wipe the screen with a red color
+        canvas.drawColor(Color.argb(255, 255, 0, 0));
+
+        // Draw some huge white text
+        paint.setColor(Color.argb(255, 255, 255, 255));
+        paint.setTextSize(blockSize * 10);
+
+        canvas.drawText("BOOM!", blockSize * 4,blockSize * 14, paint);
+
+        // Draw some text to prompt restarting
+        paint.setTextSize(blockSize * 2);
+        canvas.drawText("Take a shot to start again",blockSize * 8,blockSize * 18, paint);
+
+        // Start a new game
+        newGame();
     }
 
     // This code prints the debugging text
