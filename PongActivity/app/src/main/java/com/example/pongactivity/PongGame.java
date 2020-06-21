@@ -178,7 +178,7 @@ public class PongGame extends SurfaceView implements Runnable {
     private void update() {
         // Update the bat and the ball
         mBall.update(mFPS);
-        mBall.update(mFPS);
+        mBat.update(mFPS);
     }
 
     private void detectCollisions(){
@@ -275,7 +275,9 @@ public class PongGame extends SurfaceView implements Runnable {
                 mPaused = false;
 
                 // Where did the touch happen
-                if (motionEvent.getX() > mScreenX / 2) {
+                float xPos = motionEvent.getX();
+                //Log.d("Debug", "xPos: " + xPos);
+                if (xPos > mScreenX / 2) {
                     // On the right hand side
                     mBat.setMovementState(mBat.RIGHT);
                 }

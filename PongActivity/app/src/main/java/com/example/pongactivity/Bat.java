@@ -1,6 +1,7 @@
 package com.example.pongactivity;
 
 import android.graphics.RectF;
+import android.util.Log;
 
 public class Bat {
 
@@ -46,6 +47,7 @@ public class Bat {
     // Update the movement state passed in by the onTouchEvent method
     void setMovementState(int state) {
         mBatMoving = state;
+        //Log.d("Debug", "setMovement: " + state);
     }
 
     // Update the bat- Called each frame/loop
@@ -69,8 +71,7 @@ public class Bat {
             mXCoord = mScreenX - mLength;
         }
 
-        // Update mRect based on the results from
-        // the previous code in update
+        // Update mRect based on the results from the previous code in update
         mRect.left = mXCoord;
         mRect.right = mXCoord + mLength;
     }
