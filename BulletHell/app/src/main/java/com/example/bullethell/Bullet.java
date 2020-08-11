@@ -15,7 +15,7 @@ public class Bullet {
     private float mHeight;
 
     // The constructor
-    Bullet(int screenX){
+    Bullet(int screenX) {
 
         // Configure the bullet based on
         // the screen width in pixels
@@ -27,12 +27,12 @@ public class Bullet {
     }
 
     // Return a reference to the RectF
-    RectF getRect(){
+    RectF getRect() {
         return mRect;
     }
 
     // Move the bullet based on the speed and the frame rate
-    void update(long fps){
+    void update(long fps) {
         mRect.left = mRect.left + (mXVelocity / fps);
         mRect.top = mRect.top + (mYVelocity / fps);
         mRect.right = mRect.left + mWidth;
@@ -40,17 +40,17 @@ public class Bullet {
     }
 
     // Reverse the bullets vertical direction
-    void reverseYVelocity(){
+    void reverseYVelocity() {
         mYVelocity = -mYVelocity;
     }
 
     // Reverse the bullets horizontal direction
-    void reverseXVelocity(){
+    void reverseXVelocity() {
         mXVelocity = -mXVelocity;
     }
 
     // Spawn a new bullet
-    void spawn(int pX, int pY, int vX, int vY){
+    void spawn(int pX, int pY, int vX, int vY) {
 
         // Spawn the bullet at the location
         // passed in as parameters
