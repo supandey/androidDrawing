@@ -8,8 +8,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
-public class GameEngine extends SurfaceView implements Runnable, GameStarter, GameEngineBroadcaster {
+public class GameEngine extends SurfaceView implements Runnable, GameStarter, GameEngineBroadcaster, PlayerLaserSpawner {
 
     private Thread mThread = null;
     private long mFPS;
@@ -101,6 +102,12 @@ public class GameEngine extends SurfaceView implements Runnable, GameStarter, Ga
 
         mThread = new Thread(this);
         mThread.start();
+    }
+
+    @Override
+    public boolean spawnPlayerLaser(Transform transform) {
+
+        return false;
     }
 
 
