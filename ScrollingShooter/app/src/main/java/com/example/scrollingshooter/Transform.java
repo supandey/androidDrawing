@@ -34,25 +34,11 @@ public class Transform {
         mScreenSize = screenSize;
     }
 
-    boolean getReversedFirst() {
-        return mReversedFirst;
-    }
-
-    void flipReversedFirst() {
-        mReversedFirst = !mReversedFirst;
-    }
-
-    int getXClip() {
-        return mXClip;
-    }
-
-    void setXClip(int newXClip) {
-        mXClip = newXClip;
-    }
-
-    PointF getmScreenSize() {
-        return mScreenSize;
-    }
+    boolean getReversedFirst() { return mReversedFirst;  }
+    void flipReversedFirst() { mReversedFirst = !mReversedFirst; }
+    int getXClip() { return mXClip; }
+    void setXClip(int newXClip) { mXClip = newXClip; }
+    PointF getmScreenSize() { return mScreenSize; }
 
     void headUp() {
         mHeadingUp = true;
@@ -76,21 +62,10 @@ public class Transform {
         mFacingRight = false;
     }
 
-    boolean headingUp() {
-        return mHeadingUp;
-    }
-
-    boolean headingDown() {
-        return mHeadingDown;
-    }
-
-    boolean headingRight() {
-        return mHeadingRight;
-    }
-
-    boolean headingLeft() {
-        return mHeadingLeft;
-    }
+    boolean headingUp() { return mHeadingUp; }
+    boolean headingDown() { return mHeadingDown; }
+    boolean headingRight() { return mHeadingRight; }
+    boolean headingLeft() { return mHeadingLeft; }
 
     void updateCollider() {
         // Pull the borders in a bit (10%)
@@ -100,18 +75,14 @@ public class Transform {
         mCollider.right = (mCollider.left + mObjectWidth)  -  mObjectWidth/10;
     }
 
-    float getObjectHeight() {
-        return mObjectHeight;
-    }
+    float getObjectHeight() { return mObjectHeight; }
 
     void stopVertical() {
         mHeadingDown = false;
         mHeadingUp = false;
     }
 
-    float getSpeed() {
-        return mSpeed;
-    }
+    float getSpeed() { return mSpeed; }
 
     void setLocation(float horizontal, float vertical) {
         mLocation = new PointF(horizontal, vertical);
@@ -121,22 +92,13 @@ public class Transform {
     PointF getLocation() {
         return mLocation;
     }
-
     PointF getSize() {
         return new PointF((int)mObjectWidth, (int)mObjectHeight);
     }
 
-    void flip() {
-        mFacingRight = !mFacingRight;
-    }
-
-    boolean getFacingRight() {
-        return mFacingRight;
-    }
-
-    RectF getCollider() {
-        return mCollider;
-    }
+    void flip() { mFacingRight = !mFacingRight; }
+    boolean getFacingRight() { return mFacingRight; }
+    RectF getCollider() { return mCollider; }
 
     PointF getFiringLocation(float laserLength) {
         PointF mFiringLocation = new PointF();
