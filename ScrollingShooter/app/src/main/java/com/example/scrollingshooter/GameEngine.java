@@ -9,7 +9,7 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
-public class GameEngine extends SurfaceView implements Runnable, GameStarter, GameEngineBroadcaster, PlayerLaserSpawner {
+public class GameEngine extends SurfaceView implements Runnable, GameStarter, GameEngineBroadcaster, PlayerLaserSpawner, AlienLaserSpawner {
 
     private Thread mThread = null;
     private long mFPS;
@@ -81,7 +81,7 @@ public class GameEngine extends SurfaceView implements Runnable, GameStarter, Ga
         }
 
         // This is temporary code to emit a particle system
-        mParticleSystem.emitParticles(new PointF(500,500));
+        //mParticleSystem.emitParticles(new PointF(500,500));
 
         return true;
     }
@@ -95,6 +95,10 @@ public class GameEngine extends SurfaceView implements Runnable, GameStarter, Ga
         }
         objects.get(Level.PLAYER_INDEX).spawn(objects.get(Level.PLAYER_INDEX).getTransform());
         objects.get(Level.BACKGROUND_INDEX).spawn(objects.get(Level.PLAYER_INDEX).getTransform());
+
+        for (int i = Level.FIRST_ALIEN; i != Level.LAST_ALIEN + 1; i++) {
+            objects.get(i).spawn(objects.get(Level.PLAYER_INDEX).getTransform());
+        }
     }
 
     public void stopThread() {
@@ -126,6 +130,20 @@ public class GameEngine extends SurfaceView implements Runnable, GameStarter, Ga
             }
         }
         return true;
+    }
+
+    public void spawnAlienLaser(Transform transform) {
+        ArrayList<GameObject> objects = mLevel.getGameObjects();
+        // Shoot laser IF AVAILABLE
+        // Pass in the transform of the ship that requested the shot to be fired
+        if (objects.get(Level.mNextAlienLaser).spawn(transform)) {
+            Level.mNextAlienLaser++;
+            mSoundEngine.playShoot();
+            if (Level.mNextAlienLaser == Level.LAST_ALIEN_LASER + 1) {
+                // Just used the last laser
+                Level.mNextAlienLaser = Level.FIRST_ALIEN_LASER;
+            }
+        }
     }
 
 
