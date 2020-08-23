@@ -25,4 +25,16 @@ public class GameActivity extends AppCompatActivity {
         mGameEngine = new GameEngine(this, size);
         setContentView(mGameEngine);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGameEngine.startThread();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mGameEngine.stopThread();
+    }
 }
