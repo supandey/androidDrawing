@@ -14,7 +14,6 @@ public class MoveablePlatformSpec extends GameObjectSpec {
             "MovableBlockUpdateComponent"};
 
     public MoveablePlatformSpec() {
-        super(tag, bitmapName, speed, size,
-                components, framesOfAnimation);
+        super(tag, bitmapName, speed, size, components, framesOfAnimation);
     }
 }

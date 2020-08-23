@@ -26,19 +26,15 @@ public class GameObjectFactory {
 
         switch (object.getTag()) {
             case "Background":
-                // Code coming soon
+                object.setTransform(new BackgroundTransform(spec.getSpeed(), spec.getSize().x, spec.getSize().y, location));
                 break;
 
             case "Player":
-                // Code coming soon
+                object.setTransform(new PlayerTransform(spec.getSpeed(), spec.getSize().x, spec.getSize().y, location));
                 break;
 
             default:// normal transform
-                object.setTransform(new Transform(
-                        spec.getSpeed(),
-                        spec.getSize().x,
-                        spec.getSize().y,
-                        location));
+                object.setTransform(new Transform(spec.getSpeed(), spec.getSize().x, spec.getSize().y, location));
                 break;
         }
 
@@ -46,13 +42,13 @@ public class GameObjectFactory {
         for (int i = 0; i < mNumComponents; i++) {
             switch (spec.getComponents()[i]) {
                 case "PlayerInputComponent":
-                    // Code coming soon
+                    object.setPlayerInputTransform(new PlayerInputComponent(mGameEngineReference));
                     break;
                 case "AnimatedGraphicsComponent":
-                    // Code coming soon
+                    object.setGraphics(new AnimatedGraphicsComponent(), mContext, spec, spec.getSize(), mPixelsPerMetre);
                     break;
                 case "PlayerUpdateComponent":
-                    // Code coming soon
+                    object.setMovement(new PlayerUpdateComponent());
                     break;
                 case "InanimateBlockGraphicsComponent":
                     object.setGraphics(new InanimateBlockGraphicsComponent(), mContext, spec, spec.getSize(), mPixelsPerMetre);
@@ -61,16 +57,16 @@ public class GameObjectFactory {
                     object.setMovement(new InanimateBlockUpdateComponent());
                     break;
                 case "MovableBlockUpdateComponent":
-                    // Code coming soon
+                    object.setMovement(new MovableBlockUpdateComponent());
                     break;
                 case "DecorativeBlockUpdateComponent":
                     object.setMovement(new DecorativeBlockUpdateComponent());
                     break;
                 case "BackgroundGraphicsComponent":
-                    // Code coming soon
+                    object.setGraphics(new BackgroundGraphicsComponent(), mContext, spec, spec.getSize(), mPixelsPerMetre);
                     break;
                 case "BackgroundUpdateComponent":
-                    // Code coming soon
+                    object.setMovement(new BackgroundUpdateComponent());
                     break;
 
                 default:

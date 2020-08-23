@@ -4,16 +4,22 @@ import android.content.Context;
 import android.graphics.PointF;
 import android.util.Log;
 
+import com.example.platformer.GOSpec.BackgroundCitySpec;
+import com.example.platformer.GOSpec.BackgroundMountainSpec;
+import com.example.platformer.GOSpec.BackgroundUndergroundSpec;
 import com.example.platformer.GOSpec.BrickTileSpec;
 import com.example.platformer.GOSpec.CartTileSpec;
 import com.example.platformer.GOSpec.CoalTileSpec;
 import com.example.platformer.GOSpec.CollectibleObjectSpec;
 import com.example.platformer.GOSpec.ConcreteTileSpec;
 import com.example.platformer.GOSpec.DeadTreeTileSpec;
+import com.example.platformer.GOSpec.FireTileSpec;
 import com.example.platformer.GOSpec.GrassTileSpec;
 import com.example.platformer.GOSpec.InvisibleDeathTenByTenSpec;
 import com.example.platformer.GOSpec.LamppostTileSpec;
+import com.example.platformer.GOSpec.MoveablePlatformSpec;
 import com.example.platformer.GOSpec.ObjectiveTileSpec;
+import com.example.platformer.GOSpec.PlayerSpec;
 import com.example.platformer.GOSpec.ScorchedTileSpec;
 import com.example.platformer.GOSpec.SnowTileSpec;
 import com.example.platformer.GOSpec.SnowyTreeTileSpec;
@@ -54,7 +60,7 @@ public class LevelManager {
         }
     }
 
-    void buildGameObjects(GameState gs){
+    void buildGameObjects(GameState gs) {
         // Backgrounds 1, 2, 3(City, Underground, Mountain...)
         // p = Player
         // g = Grass tile
@@ -89,36 +95,25 @@ public class LevelManager {
                 switch (levelToLoad.get(row).charAt(column)) {
 
                     case '1':
-                        //objects.add(factory.create(
-                        // new BackgroundCitySpec(),
-                        // coords));
+                        objects.add(factory.create(new BackgroundCitySpec(), coords));
                         break;
 
                     case '2':
-                        //objects.add(factory.create(
-                        // new BackgroundUndergroundSpec(),
-                        // coords));
+                        objects.add(factory.create(new BackgroundUndergroundSpec(), coords));
                         break;
 
                     case '3':
-                        //objects.add(factory.create(
-                        // new BackgroundMountainSpec(),
-                        // coords));
+                        objects.add(factory.create(new BackgroundMountainSpec(), coords));
                         break;
 
                     case 'p':
-                        //objects.add(factory.create(new
-                        // PlayerSpec(),
-                        // coords));
-                        // Remember the location of
-                        // the player
-                        //PLAYER_INDEX = objects.size()-1;
+                        objects.add(factory.create(new PlayerSpec(), coords));
+                        // Remember the location of the player
+                        PLAYER_INDEX = objects.size()-1;
                         break;
 
                     case 'g':
-                        objects.add(factory.create(
-                                new GrassTileSpec(),
-                                coords));
+                        objects.add(factory.create( new GrassTileSpec(), coords));
                         break;
 
                     case 'o':
@@ -128,9 +123,7 @@ public class LevelManager {
                         break;
 
                     case 'm':
-                        //objects.add(factory.create(
-                        // new MoveablePlatformSpec(),
-                        // coords));
+                        objects.add(factory.create(new MoveablePlatformSpec(), coords));
                         break;
 
                     case 'b':
@@ -213,10 +206,7 @@ public class LevelManager {
                         break;
 
                     case 'z':
-                        //objects.add(factory.create(
-                        // new FireTileSpec(),
-                        // coords));
-
+                        objects.add(factory.create(new FireTileSpec(), coords));
                         break;
 
                     case 'y':
